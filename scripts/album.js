@@ -30,6 +30,25 @@ var albumMarconi = {
     ]
 };
 
+// A Third Example Album
+var albumNature = {
+    title: 'The World',
+    artist: 'Nature',
+    label: 'Sol 3',
+    year: '0000',
+    albumArtUrl: 'assets/images/album_covers/13.png',
+    songs: [
+        { title: 'Dirt', duration: '2:04' },
+        { title: 'Rock', duration: '3:58' },
+        { title: 'Moss', duration: '2:33' },
+        { title: 'Tree', duration: '4:19' },
+        { title: 'Sky', duration: '8:52' }
+    ]
+};
+
+var albums = [albumPicasso, albumMarconi, albumNature];
+var albumIndex = 0;
+
 var createSongRow = function createSongRow(trackNumber, title, duration) {
     var template =
         '<tr class="album-view-song-item">'
@@ -60,6 +79,17 @@ var setCurrentAlbum = function setCurrentAlbum(album) {
         albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
     }
 };
+
+var albumCover = document.getElementsByClassName('album-cover-art')[0];
+albumCover.addEventListener('click', function (event) {
+    if (albumIndex < albums.length - 1) {
+        albumIndex++;
+    } else {
+        albumIndex = 0;
+    }
+
+    setCurrentAlbum(albums[albumIndex]);
+});
 
 window.onload = function () {
     setCurrentAlbum(albumPicasso);
