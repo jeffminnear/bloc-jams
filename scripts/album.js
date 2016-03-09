@@ -98,37 +98,20 @@ var updatePlayerBarSong = function updatePlayerBarSong() {
     $('.main-controls .play-pause').html(playerBarPauseButton);
 };
 
-var nextSong = function nextSong() {
+var changeTrack = function changeTrack() {
+    var value = parseInt($(this).attr('data-value'));
     var currentIndex = trackIndex(currentAlbum, currentSongFromAlbum);
     var $oldSong = getSongNumberCell(currentIndex + 1);
     var oldSongNumber = parseInt($oldSong.attr('data-track-number'));
     var $newSong = null;
 
-    currentIndex++;
+    currentIndex += value;
 
     if (currentIndex >= currentAlbum.songs.length) {
         currentIndex = 0;
-    }
-
-    setSong(currentIndex + 1);
-    $oldSong.html(oldSongNumber);
-    $newSong = getSongNumberCell(currentIndex + 1);
-    $newSong.html(pauseButtonTemplate);
-    updatePlayerBarSong();
-};
-
-var previousSong = function previousSong() {
-    var currentIndex = trackIndex(currentAlbum, currentSongFromAlbum);
-    var $oldSong = getSongNumberCell(currentIndex + 1);
-    var oldSongNumber = parseInt($oldSong.attr('data-track-number'));
-    var $newSong = null;
-
-    currentIndex--;
-
-    if (currentIndex < 0) {
+    } else if (currentIndex < 0) {
         currentIndex = currentAlbum.songs.length - 1;
     }
-
 
     setSong(currentIndex + 1);
     $oldSong.html(oldSongNumber);
@@ -153,6 +136,6 @@ var $nextButton = $('.main-controls .next');
 
 $(document).ready(function () {
     setCurrentAlbum(albumPicasso);
-    $previousButton.click(previousSong);
-    $nextButton.click(nextSong);
+    $previousButton.click(changeTrack);
+    $nextButton.click(changeTrack);
 });
