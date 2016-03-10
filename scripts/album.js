@@ -203,6 +203,11 @@ var updateSeekBarWhileSongPlays = function updateSeekBarWhileSongPlays() {
 
             updateSeekPercentage($seekBar, seekBarFillRatio);
             setCurrentTimeInPlayerBar(currentTime.toString());
+            if (currentSoundFile.isEnded()) {
+                if (currentlyPlayingSongNumber < currentAlbum.songs.length) {
+                    nextSong();
+                }
+            }
         });
     }
 };
